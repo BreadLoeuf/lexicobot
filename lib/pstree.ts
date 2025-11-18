@@ -21,3 +21,5 @@ const bNode: TreeNode = {
 const input = '[S [NP [Pron This] [N is]] [VP [V a] [N test]]]';
 const splitInp = input.split(/([ \[\]])/).filter(c => c && c !== ' ');
 console.log(splitInp);
+
+

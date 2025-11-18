@@ -15,11 +15,8 @@ Bot.on('message', async message => {
 		case message.author.group && !groups.includes(message.author.group):
 			break;
 		case message.content.startsWith(`${bp}echo `):
-			message.reply(message.content.slice((bp + 'echo ').length));
-			if (message.content == '')
-			{
-				message.reply("[[]]");
-			}
+			const inp = message.content.slice(bp + 'echo ').length;
+			message.reply(`[[]]${inp}`);
 			break;
 		case message.content.startsWith(`${bp}ping`):
 			message.reply('Pong!');
