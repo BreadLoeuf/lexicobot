@@ -10,7 +10,6 @@ Bot.connect();
 const bp = '_';
 Bot.on('message', async message => {
 		switch(true) {
-		// ignore messages without an author (system) or from groups we don't allow
 		case (message.isIntro || !message.author || !message.target || message.author.userid === message.parent.status.userid):
 			break;
 		case message.author.group && !groups.includes(message.author.group):
