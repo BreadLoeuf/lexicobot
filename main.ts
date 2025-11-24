@@ -1,6 +1,7 @@
 import { Client, Message } from 'ps-client';
 import * as dotenv from 'dotenv';
 import * as todo from './lib/todo';
+import * as helper from './lib/helpers';
 
 
 dotenv.config();
@@ -46,6 +47,20 @@ Bot.on('message', async message => {
 			return message.reply("This feature is under development.");
 
 		case message.content.startsWith(`${bp}todo`):
-			message.reply(todo.getTodo());
+			if(helper.readFile('./todo.txt').length == 0) {
+				return message.reply("There is nothing to do!");
+			} else {
+				return message.reply(todo.getTodo());
+			}
+		case message.content.startsWith(`${bp}cleartodo`):
+			todo.clearTodo();
+			return message.reply("To-Do List Cleared!");
+		case message.content.startsWith(`${bp}rejoinrooms`):
+			const rooms: string[] = ['thelibrary', 'internetexplorers', 'techcode', 'thehappyplace', 'lobby', 'hgl'];
+			const roomsToJoin: number = 6;
+			for (let i = 0; i < roomsToJoin; i++) {
+				message.reply(`/j ${rooms[i]}`)
+			}
+			return message.reply('Rooms rejoined!');
 	}
 });

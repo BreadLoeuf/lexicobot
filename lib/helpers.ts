@@ -13,3 +13,16 @@ export function readFile(filename: string): string {
 export function clearFile(filename: string): void {
     return fs.writeFileSync(filename, "", 'utf-8');
 }
+
+export function isFileEmpty(fileName: string, ignoreWhitespace=true): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+        fs.readFile(fileName, (err, data) => {
+            if( err ) {
+                reject(err);
+                return;
+            }
+
+            resolve((!ignoreWhitespace && data.length == 0) || (ignoreWhitespace && !!String(data).match(/^\s*$/)))
+        });
+    })
+}

@@ -7,5 +7,5 @@ export function getTodo(): string {
 }
 
 export function clearTodo(): void {
-    return;
+    return helper.clearFile('./todo.txt');
 }
