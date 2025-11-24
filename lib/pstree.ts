@@ -1,25 +1,14 @@
 type TreeNode = {
-    type: 'leaf',
-    name: string,
+  type: 'leaf',
+  name: string,
 } | {
-    type: 'node',
-    name: string,
-    children: TreeNode[],
+  type: 'node',
+  name: string,
+  children: Node[],
 };
 
-const aNode: TreeNode = {
-    type: 'leaf',
-    name: 'a',
-};
-
-const bNode: TreeNode = {
-    type: 'node',
-    name: 'b', 
-    children: [aNode],
-};
-
-const input = '[S [NP [Pron This] [N is]] [VP [V a] [N test]]]';
-const splitInp = input.split(/([ \[\]])/).filter(c => c && c !== ' ');
-console.log(splitInp);
-
-
+// To-Do
+// Convert a string like "[S [NP John] [VP [V saw] [NP Mary]]]" into a tree structure
+// Split up string into several tokens
+// IF [ is seen, CREATE a new node. IF ] is seen, END node and GO BACK up tree.
+// The first word after a [ should be grouped as the category, while each word after that should be grouped on their own

@@ -1,10 +1,11 @@
-const { Client } = require('ps-client');
-const { loadEnvFile } = require('node:process');
+import { Client, Message } from 'ps-client';
+import * as dotenv from 'dotenv';
+import * as todo from './lib/todo';
 
 
-loadEnvFile('./.env');
+dotenv.config();
 const groups = ['~', '&', '#', '@', '%', '+', '★', '*', 'trusted'];
-const Bot = new Client({ username: 'Lexicobot', password: process.env.PASSWORD, debug: true, avatar: 'touristf', rooms: ['groupchat-breadey-testing', 'thehappyplace', 'hgl', 'botdevelopment', 'thelibrary', 'internetexplorers', 'techcode'] });
+export const Bot = new Client({ username: 'Lexicobot', password: process.env.PASSWORD, debug: true, avatar: 'touristf', rooms: ['groupchat-breadey-testing', 'thehappyplace', 'hgl', 'botdevelopment', 'thelibrary', 'internetexplorers', 'techcode'] });
 Bot.connect();
 
 const bp = '_';
@@ -15,9 +16,8 @@ Bot.on('message', async message => {
 		case message.author.group && !groups.includes(message.author.group):
 			break;
 		case message.content.startsWith(`${bp}echo `):
-			const inp = message.content.slice(bp + 'echo ').length;
-			message.reply(`[[]]${inp}`);
-			break;
+			const inp = message.content.slice(`${bp}echo`.length);
+			return message.reply(`[[]]${inp}`);
 		case message.content.startsWith(`${bp}ping`):
 			message.reply('Pong!');
 			break;
@@ -33,18 +33,18 @@ Bot.on('message', async message => {
 			// Fetch a word of the user's choosing
 			try {
 				const res = await fetch(url + word).then(response => response.json()).then(data => {
-				message.reply(`/addhtmlbox <div id="background"><h3>${data[0].word}</h3><p id="subtitle">${data[0].meanings[0].partOfSpeech}</p><hr><p>${data[0].meanings[0].definitions[0].definition}</p></div>`);
+				return message.reply(`/addhtmlbox <div id="background"><h3>${data[0].word}</h3><p id="subtitle">${data[0].meanings[0].partOfSpeech}</p><hr><p>${data[0].meanings[0].definitions[0].definition}</p></div>`);
 			});
-			} catch (error) {
-				message.reply("Sorry, I couldn't find the definition for that word.");
+			} catch (error: any) {
+				return message.reply("Sorry, I couldn't find the definition for that word.");
 				console.error(error.message);
 			}
 			finally {
 				break;
 			}	
 		case message.content.startsWith(`${bp}pstree `):
-			message.reply("This feature is under development.");
-			break;
-
+			return message.reply("This feature is under development.");
+		case message.content.startsWith(`${bp}todo`):
+			todo.getTodo();
 	}
 });
