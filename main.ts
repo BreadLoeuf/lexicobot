@@ -44,7 +44,8 @@ Bot.on('message', async message => {
 			}	
 		case message.content.startsWith(`${bp}pstree `):
 			return message.reply("This feature is under development.");
+
 		case message.content.startsWith(`${bp}todo`):
-			todo.getTodo();
+			message.reply(todo.getTodo());
 	}
 });
