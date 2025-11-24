@@ -6,7 +6,7 @@ import * as helper from './lib/helpers';
 
 dotenv.config();
 const groups = ['~', '&', '#', '@', '%', '+', '★', '*', 'trusted'];
-export const Bot = new Client({ username: 'Lexicobot', password: process.env.PASSWORD, debug: true, avatar: 'touristf', rooms: ['groupchat-breadey-testing', 'thehappyplace', 'hgl', 'botdevelopment', 'thelibrary', 'internetexplorers', 'techcode'] });
+export const Bot = new Client({ username: 'Lexicobot', password: process.env.PASSWORD, debug: true, avatar: 'touristf', rooms: ['groupchat-breadey-testing', 'thehappyplace', process.env.ROOM0!, 'botdevelopment', 'thelibrary', 'internetexplorers', 'techcode'] });
 Bot.connect();
 
 const bp = '_';
@@ -56,7 +56,7 @@ Bot.on('message', async message => {
 			todo.clearTodo();
 			return message.reply("To-Do List Cleared!");
 		case message.content.startsWith(`${bp}rejoinrooms`):
-			const rooms: string[] = ['thelibrary', 'internetexplorers', 'techcode', 'thehappyplace', 'lobby', 'hgl'];
+			const rooms: string[] = ['thelibrary', 'internetexplorers', 'techcode', 'thehappyplace', 'lobby', process.env.ROOM0!];
 			const roomsToJoin: number = 6;
 			for (let i = 0; i < roomsToJoin; i++) {
 				message.reply(`/j ${rooms[i]}`)
