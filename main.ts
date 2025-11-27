@@ -2,6 +2,7 @@ import { Client, Message } from 'ps-client';
 import * as dotenv from 'dotenv';
 import * as todo from './lib/todo';
 import * as helper from './lib/helpers';
+import * as wikirace from './games/wikirace';
 
 
 dotenv.config();
@@ -62,5 +63,7 @@ Bot.on('message', async message => {
 				message.reply(`/j ${rooms[i]}`)
 			}
 			return message.reply('Rooms rejoined!');
+		case message.content.startsWith(`${bp}wikirace`):
+			return message.reply(`Starting race from ${await wikirace.genWikilink()} to ${await wikirace.genWikilink()}`);
 	}
 });
