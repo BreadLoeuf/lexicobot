@@ -3,6 +3,7 @@ import * as dotenv from 'dotenv';
 import * as todo from './lib/todo';
 import * as helper from './lib/helpers';
 import * as wikirace from './games/wikirace';
+import * as randcat from './randanimals/randcat';
 
 
 dotenv.config();
@@ -48,28 +49,32 @@ Bot.on('message', async message => {
 			finally {
 				break;
 			}
-
 		case message.content.startsWith(`${bp}wikirace`):
 		return message.reply(`Starting race from ${await wikirace.genWikilink()} to ${await wikirace.genWikilink()}`);
 
 		case message.content.startsWith(`${bp}pstree `):
 			return message.reply("This feature is under development.");
+		case message.content.startsWith(`${bp}randcat`):
+			const cat = `/addhtmlbox <img src="https://cdn2.thecatapi.com/images/${await randcat.randcat()}.jpg" width="200" height="250" />`;
+			console.log(cat);
+			return message.reply(cat);
+			// return message.reply(`!show ${await randcat.randcat()}`);
 		}
+
 
 		// Room Owner Commands:
 		switch(true) {
 		case (message.isIntro || !message.author || !message.target || message.author.userid === message.parent.status.userid):
 			break;
-		case !/[#~]/.test(message.author.group) && !/[#~]/.test(roomRank):
+		case !/[#~]/.test(message.author.group) && !/[#~]/.test(roomRank) && message.author.userid != 'breadey':
 			break;
 		case message.content.startsWith(`${bp}echo `): // ECHOes the argument
 			const inp = message.content.slice(`${bp}echo`.length);
 			return message.reply(`[[]]${inp}`);
-
 		case message.content.startsWith(`${bp}ping`): // Returns "Pong!"
 			return message.reply('Pong!');
 			case message.content.startsWith(`${bp}rejoinrooms`):
-			const roomsToJoin: number = 6;
+			const roomsToJoin: number = rooms.length - 1;
 			for (let i = 0; i < roomsToJoin; i++) {
 				message.reply(`/j ${rooms[i]}`)
 			}
