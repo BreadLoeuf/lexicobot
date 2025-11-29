@@ -55,10 +55,11 @@ Bot.on('message', async message => {
 		case message.content.startsWith(`${bp}pstree `):
 			return message.reply("This feature is under development.");
 		case message.content.startsWith(`${bp}randcat`):
-			const cat = `/addhtmlbox <img src="https://cdn2.thecatapi.com/images/${await randcat.randcat()}.jpg" width="200" height="250" />`;
-			console.log(cat);
-			return message.reply(cat);
-			// return message.reply(`!show ${await randcat.randcat()}`);
+			randcat.randcat().then(result => {
+				if (result) {
+					return message.reply(`/addhtmlbox <img src=${result.url} height=${result.height} width=${result.width} />`)
+				}
+			})
 		}
 
 
@@ -74,7 +75,7 @@ Bot.on('message', async message => {
 		case message.content.startsWith(`${bp}ping`): // Returns "Pong!"
 			return message.reply('Pong!');
 			case message.content.startsWith(`${bp}rejoinrooms`):
-			const roomsToJoin: number = rooms.length - 1;
+			const roomsToJoin: number = rooms.length;
 			for (let i = 0; i < roomsToJoin; i++) {
 				message.reply(`/j ${rooms[i]}`)
 			}

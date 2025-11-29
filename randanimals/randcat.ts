@@ -14,19 +14,16 @@ export async function randcat() {
             throw new Error(`Response status: ${response.status}`);
         }
         
-        const result = await response.json();
-        const JSONurl = JSON.stringify(result).split(',')[1];
-        const JSONurlsing = JSONurl.split(/:(.*)/)
-        const justTheBloodyURL = JSONurlsing[1].substring(1, JSONurlsing[1].length - 1);
-        return justTheBloodyURL;
+        const result = await response.json() as { id: string, height: number, width: number, url: string }[];
+        return {
+            url: result[0].url
+            , height: result[0].height
+            , width: result[0].width
+        };
     } catch (error: any) {
         console.error(error.message);
     }
 }
-
-(async() => {
-    console.log(await randcat());
-})();
 
 
 
