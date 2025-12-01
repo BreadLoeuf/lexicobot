@@ -50,14 +50,16 @@ Bot.on('message', async message => {
 				break;
 			}
 		case message.content.startsWith(`${bp}wikirace`):
-		return message.reply(`Starting race from ${await wikirace.genWikilink()} to ${await wikirace.genWikilink()}`);
+			return message.reply(`Starting race from ${await wikirace.genWikilink()} to ${await wikirace.genWikilink()}`);
+		
 
 		case message.content.startsWith(`${bp}pstree `):
 			return message.reply("This feature is under development.");
+
 		case message.content.startsWith(`${bp}randcat`):
 			randcat.randcat().then(result => {
 				if (result) {
-					return message.reply(`/addhtmlbox <img src=${result.url} height=${result.height} width=${result.width} />`)
+					return message.reply(`/addhtmlbox <img src=${result.url} height=${result.height} width=${result.width}/> <style>img{max-height: 10%; width: auto;}</style>`)
 				}
 			})
 		}

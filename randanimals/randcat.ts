@@ -15,11 +15,7 @@ export async function randcat() {
         }
         
         const result = await response.json() as { id: string, height: number, width: number, url: string }[];
-        return {
-            url: result[0].url
-            , height: result[0].height
-            , width: result[0].width
-        };
+        return result[0];
     } catch (error: any) {
         console.error(error.message);
     }
