@@ -59,10 +59,11 @@ Bot.on('message', async message => {
 		case message.content.startsWith(`${bp}randcat`):
 			randcat.randcat().then(result => {
 				if (result) {
-					if (result.height < 500 && result.width <= 500) {
+					const maxSize = 300;
+					if (result.height < maxSize && result.width <= maxSize) {
 						return message.reply(`/addhtmlbox <img src=${result.url} height=${result.height} width=${result.width} />`);
 					} else {
-						const ratio = Math.min(500 / result.height, 500 / result.width);
+						const ratio = Math.min(maxSize / result.height, maxSize / result.width);
 						return message.reply(`/addhtmlbox <img src=${result.url} height=${Math.round(result.height * ratio)} width=${Math.round(result.height * ratio)} />`);
 					}
 				}
