@@ -1,11 +1,19 @@
 export async function define(word: string, page: number) {
     const url = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
-    const response = await fetch(url + word);
-    const result = await response.json() as {word: string, phonetic: string, meanings: string, definitions: string[]}[];
+    
+    try {
+        const res = await fetch(url + word).then(response => response.json());
 
-    return result[page];
+        if (!res.ok) {
+            console.log(`Error: ${res.error}`);
+        }
+
+        return res[0];
+    } catch (err: any) {
+        return(`${err.name}: ${err.message}`);
+    }
 }
 
 (async() => {
-    console.log(await define('test', 1));
+    console.log(await define('notaword', 1));
 })();

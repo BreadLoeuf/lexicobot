@@ -14,7 +14,7 @@ export async function randcat() {
             throw new Error(`Response status: ${response.status}`);
         }
         
-        const result = await response.json() as { id: string, height: number, width: number, url: string }[];
+        const result = await response.json() as { id: string, height: number, width: number, url: string, maxHeight: number, maxWidth: number }[];
         return result[0];
     } catch (error: any) {
         console.error(error.message);

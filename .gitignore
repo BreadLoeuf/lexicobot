@@ -1,2 +1,6 @@
 .env
 todo.txt
+
+# errorhandling
+errorlog.txt
+httperrors.txt

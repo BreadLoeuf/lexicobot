@@ -2,7 +2,7 @@ import { Client, Message } from 'ps-client';
 import * as dotenv from 'dotenv';
 import * as todo from './lib/todo';
 import * as helper from './lib/helpers';
-import * as wikirace from './games/wikirace';
+import * as wikirace from './games/wikirace/wikirace';
 import * as randcat from './randanimals/randcat';
 
 
@@ -59,7 +59,12 @@ Bot.on('message', async message => {
 		case message.content.startsWith(`${bp}randcat`):
 			randcat.randcat().then(result => {
 				if (result) {
-					return message.reply(`/addhtmlbox <img src=${result.url} height=${result.height} width=${result.width}/> <style>img{max-height: 10%; width: auto;}</style>`)
+					if (result.height < 500 && result.width <= 500) {
+						return message.reply(`/addhtmlbox <img src=${result.url} height=${result.height} width=${result.width} />`);
+					} else {
+						const ratio = Math.min(500 / result.height, 500 / result.width);
+						return message.reply(`/addhtmlbox <img src=${result.url} height=${Math.round(result.height * ratio)} width=${Math.round(result.height * ratio)} />`);
+					}
 				}
 			})
 		}
