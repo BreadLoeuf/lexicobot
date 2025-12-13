@@ -57,6 +57,9 @@ Bot.on('message', async message => {
 		case message.content.startsWith(`${bp}pstree `):
 			return message.reply("This feature is under development.");
 
+		case message.content.startsWith(`${bp}randdog`):
+			return message.reply(`/addhtmlbox <img src="${await randdog.randdog()}" height="300" width="300" />`)
+
 		case message.content.startsWith(`${bp}randcat`):
 			randcat.randcat().then(result => {
 				if (result) {
@@ -69,9 +72,6 @@ Bot.on('message', async message => {
 					}
 				}
 			})
-
-			case message.content.startsWith(`${bp}randdog`):
-				return message.reply(`/addhtmlbox <img src="${await randdog.randdog()}" height="300" width="300" />`)
 		}
 
 
