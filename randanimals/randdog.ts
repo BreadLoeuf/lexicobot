@@ -1,30 +1,25 @@
-import * as dotenv from 'dotenv';
 import * as we from '../errorhandling/writeError';
 
-export async function randcat() {
-    const url = 'https://api.thecatapi.com/v1/images/search';
+export async function randdog() {
+    const url = 'https://dog.ceo/api/breeds/image/random';
 
     try {
         const response = await fetch(url, {
             method: "GET",
-            headers: {
-                "x-api-key": process.env.CAPI_KEY!
-            }
         });
         if (!response.ok) {
             we.passToHTTPLog(`Response status: ${response.status}`);
             throw new Error(`Response status: ${response.status}`);
         }
         
-        const result = await response.json() as { id: string, height: number, width: number, url: string, maxHeight: number, maxWidth: number }[];
-        return result[0];
+        const result = await response.json().then(data => {return data});
+        return result['message'];
     } catch (error: any) {
         console.error(error.message);
         we.writeError(`${error.name}: ${error.message}`);
     }
 }
 
-
-
-
-
+(async () => {
+    console.log(await randdog());
+})();

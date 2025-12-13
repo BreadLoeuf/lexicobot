@@ -4,6 +4,7 @@ import * as todo from './lib/todo';
 import * as helper from './lib/helpers';
 import * as wikirace from './games/wikirace/wikirace';
 import * as randcat from './randanimals/randcat';
+import * as randdog from './randanimals/randdog';
 
 
 dotenv.config();
@@ -68,6 +69,9 @@ Bot.on('message', async message => {
 					}
 				}
 			})
+
+			case message.content.startsWith(`${bp}randdog`):
+				return message.reply(`/addhtmlbox <img src="${await randdog.randdog()}" height="300" width="300" />`)
 		}
 
 
